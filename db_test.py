@@ -6,6 +6,34 @@ from backend.db.db import connect, disconnect
 from backend.db.helpers import get_appointments_by_date
 from backend.db.queries import add_appointment, select_appointments_by_date
 
+def example_script():
+    # Get config
+    config_path = 'config/project_config.json'
+    create_tables(config_path)
+
+    # Connect to db
+    connection, cursor = connect(config_path)
+    
+    # Parse thru .csv & compute optimal schedule
+    # {...}
+    appointments = []
+    
+    # Add appointments
+    for appointment in appointments:
+        start_time, car_type, end_time = appointment
+        add_appointment(cursor, connection, (start_time, car_type, end_time))
+    
+    # If we ever need the appointments for a given day:
+    example_date = date(2024, 1, 20)
+    appointments_on_example_date = get_appointments_by_date(cursor, example_date)
+    for appointment in appointments_on_example_date:
+        car_type, start_time, end_time = appointment
+    
+    # Once we're done, close the connection to the database
+    disconnect(connection, cursor)
+
+
+# Example:
 config_path = 'config/project_config.json'
 create_tables(config_path)
 

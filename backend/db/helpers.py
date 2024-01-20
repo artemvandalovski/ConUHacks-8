@@ -20,4 +20,9 @@ def get_appointments_by_date(cursor: sqlite3.Cursor, target_date: date) -> List[
       - end_time (time): The end time of the appointment (extracted from 'end_time' string).
     '''
     appointments = select_appointments_by_date(cursor, target_date)
-    return [(car_type, datetime.strptime(start_time, '%Y-%m-%d %H:%M:%S').time(), datetime.strptime(end_time, '%Y-%m-%d %H:%M:%S').time()) for _, start_time, car_type, end_time in appointments]
+    
+    def get_time_from_str(date_str):
+        to_date = datetime.strptime(date_str, '%Y-%m-%d %H:%M:%S')
+        return to_date.time()
+    
+    return [(car_type, get_time_from_str(start_time), get_time_from_str(end_time)) for _, start_time, car_type, end_time in appointments]
