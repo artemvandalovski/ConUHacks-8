@@ -5,6 +5,17 @@ from backend.db.queries import create_appointments_table, drop_appointments_tabl
 
 
 def create_tables(config_path: str) -> None:
+    '''
+    Create and configure database tables.
+    Currently supported tables are:
+    - appointments
+
+    Parameters:
+    - config_path (str): The path to the configuration file.
+
+    Returns:
+    None
+    '''
     try:
         # Establish a connection to the database
         connection, cursor = connect(config_path)
