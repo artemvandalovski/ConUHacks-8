@@ -23,8 +23,8 @@ When cloning this project, create an `project_config.json` file to store your co
 {
     "database":
     {
-        "dbname": "my_database",
-        "user": "postgres",
+        "dbname": "tire_change_shop.db",
+        "user": "sqlite",
         "password": "password",
         "host": "localhost",
         "port": 5432
