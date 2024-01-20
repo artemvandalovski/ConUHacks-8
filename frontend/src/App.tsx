@@ -1,26 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import SelectionCalendar from './components/SelectionCalendar';
 
-function App() {
+const App: React.FC = () => {
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+
+  const handleDateSelect = (date: Date) => {
+    setSelectedDate(date);
+    // You can perform additional actions when a date is selected
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Scheduling App</h1>
+      <SelectionCalendar onSelectDate={handleDateSelect} />
+      {selectedDate && (
+        <p>Selected Date: {selectedDate.toDateString()}</p>
+      )}
     </div>
   );
-}
+};
 
 export default App;
