@@ -4,7 +4,7 @@ from models.request import Request
 from models.vehicle import Vehicle
 
 
-class RequestValidator:
+class RequestValidation:
     def __init__(self, request):
         self.request = request
         self.valid = True
