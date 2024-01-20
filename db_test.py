@@ -19,13 +19,21 @@ appointment_data = {
 add_appointment(cursor, connection, appointment_data['start_time'], appointment_data['car_type'], appointment_data['end_time'])
 
 
-dates = [
-    datetime(2024, 1, 20),
-    datetime(2024, 1, 19),
-    datetime(2024, 1, 18),
-    datetime(2024, 1, 19),
-    datetime(2024, 1, 19),
-    datetime(2024, 1, 18),
+sdates = [
+    datetime(2024, 1, 20, 12, 0, 0),
+    datetime(2024, 1, 19, 12, 0, 0),
+    datetime(2024, 1, 18, 12, 0, 0),
+    datetime(2024, 1, 19, 8, 0, 0),
+    datetime(2024, 1, 19, 11, 0, 0),
+    datetime(2024, 1, 18, 12, 0, 0),
+]
+edates = [
+    datetime(2024, 1, 20, 12, 0, 0),
+    datetime(2024, 1, 19, 15, 0, 0),
+    datetime(2024, 1, 18, 12, 0, 0),
+    datetime(2024, 1, 19, 16, 0, 0),
+    datetime(2024, 1, 19, 17, 0, 0),
+    datetime(2024, 1, 18, 12, 0, 0),
 ]
 types = [
     'Toyota',
@@ -36,10 +44,10 @@ types = [
     'Porsche',
 ]
 
-for d, t in zip(dates, types):
-    add_appointment(cursor, connection, d, t, d)
+for d1, d2, t in zip(sdates, edates, types):
+    add_appointment(cursor, connection, d1, t, d2)
 
-for ct, sd, ed in get_appointments_by_date(select_appointments_by_date(cursor, date(2024, 1, 19))):
+for ct, sd, ed in get_appointments_by_date(cursor, date(2024, 1, 19)):
     print(f'[{ct}]: From {sd} to {ed}')
 
 disconnect(connection, cursor)
