@@ -4,7 +4,6 @@ import { ViewState } from '@devexpress/dx-react-scheduler';
 import { Scheduler, DayView, Appointments, AppointmentTooltip } from '@devexpress/dx-react-scheduler-material-ui';
 import { Appointment } from '../models/schedule';
 
-// TODO: Create new appointments with https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/guides/editing/
 const DayScheduler = ({ appointments }: { appointments: Appointment[] }) => {
     const [appointmentList, setAppointmentList] = useState<any[]>([]);
 

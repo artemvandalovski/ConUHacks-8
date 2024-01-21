@@ -38,15 +38,15 @@ const CumulativeProfitOverview = () => {
   };
 
   return (
-    <PieChart width={400} height={400}>
+    <PieChart width={400} height={300}>
       <Pie
         activeIndex={activeIndex!}
         activeShape={renderActiveShape} // Render a custom active shape on hover
         data={data}
-        cx={200}
-        cy={200}
-        innerRadius={120}
-        outerRadius={160}
+        cx={100}
+        cy={120}
+        innerRadius={60}
+        outerRadius={100}
         fill="#8884d8"
         dataKey="value"
         onMouseEnter={onPieEnter}

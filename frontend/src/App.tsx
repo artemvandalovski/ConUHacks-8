@@ -23,6 +23,7 @@ const App: React.FC = () => {
     if (selectedDate) {
       getScheduleByDate(selectedDate.toLocaleDateString()).then((schedule: Schedule) => {
         setSchedule(schedule);
+        console.log(schedule);
       });
     }
   }, [selectedDate]);
@@ -32,8 +33,8 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="App" style={{ display: 'flex', height: '100vh' }}>
-      <div style={{ width: '50%', display: 'flex', flexDirection: 'column' }}>
+    <div className="App" style={{ display: 'flex', flexDirection: 'row', height: '100vh' }}>
+      <div style={{ width: '80%', display: 'flex', flexDirection: 'column' }}>
         <div style={{ flex: 1 }}>
           <SelectionCalendar onSelectDate={handleDateSelect} />
           <div style={{ padding: 10 }}>
