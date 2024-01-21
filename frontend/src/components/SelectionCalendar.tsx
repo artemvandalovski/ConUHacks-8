@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+import './SelectionCalendar.css'; // Assuming you'll create this CSS file
 
 interface CalendarProps {
   onSelectDate: (date: Date) => void;
@@ -17,10 +18,11 @@ const SelectionCalendar: React.FC<CalendarProps> = ({ onSelectDate }) => {
   };
 
   return (
-    <div>
+    <div className="calendar-container">
       <Calendar
         onChange={handleDateChange as any}
         value={selectedDate instanceof Date ? selectedDate : undefined}
+        calendarType="US"
       />
     </div>
   );
