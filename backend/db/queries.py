@@ -12,15 +12,6 @@ def drop_appointments_table(cursor: sqlite3.Cursor) -> None:
     Returns:
     None
     '''
-    '''
-    Drop the `appointments` table if it exists.
-
-    Parameters:
-    - cursor (sqlite3.Cursor): The SQLite cursor object.
-
-    Returns:
-    None
-    '''
     query = '''
     DROP TABLE IF EXISTS appointments;
     '''
@@ -86,25 +77,13 @@ def create_quotas_table(cursor: sqlite3. Cursor) -> None:
 
 def add_appointment(cursor: sqlite3. Cursor, connection: sqlite3.Connection, start_time: datetime, car_type: str, end_time: datetime) -> None:
     '''
-    Add a new appointment to the 'appointments' table.
+    Add a new appointment to the `appointments` table.
 
     Parameters:
     - cursor (sqlite3.Cursor): The SQLite cursor object.
     - start_time: The start time of the appointment.
     - car_type: The type of car for the appointment.
     - end_time: The end time of the appointment.
-
-    Returns:
-    None
-    '''
-    '''
-    Add a new appointment to the 'appointments' table.
-
-    Parameters:
-    - cursor (sqlite3.Cursor): The SQLite cursor object.
-    - start_time (datetime): The start time of the appointment.
-    - car_type (str): The type of car for the appointment.
-    - end_time (datetime): The end time of the appointment.
 
     Returns:
     None
