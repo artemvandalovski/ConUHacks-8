@@ -5,7 +5,7 @@ from services.request_service import validate_dates
 from repo.schedule_repo import get_schedule, save_schedule
 
 df = pd.read_csv(
-    "resources/datafile.csv",
+    "../resources/datafile.csv",
     header=None,
     names=["request_date", "appointment_date", "vehicle_type"],
 )

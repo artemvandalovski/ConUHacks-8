@@ -1,7 +1,5 @@
-from . import SqliteDict
+from . import SqliteDict, db_path
 from models.schedule import Schedule
-
-db_path = "resources/schedule_db.sqlite"
 
 
 def get_schedule(date):

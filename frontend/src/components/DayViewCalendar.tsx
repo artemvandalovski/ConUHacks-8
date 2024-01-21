@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Card from 'react-bootstrap/Card';
+import { Container, Row, Col, Card } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 
 const initialAvailability = { startTime: '07:00', endTime: '19:00' };
@@ -50,39 +47,39 @@ const DayViewCalendar = () => {
 
   return (
     <Container className="mt-3">
-  <Row className="justify-content-md-center">
-    {schedules.map((baySchedule, bayIndex) => (
-      <Col key={bayIndex} className="mb-4" style={{ flex: 0, maxWidth: '10%' }}> {/* Inline styles for equal width */}
-        <Card>
-          <Card.Header className="bg-primary text-white">
-            {`Bay ${bayIndex + 1}`}
-          </Card.Header>
-          <Card.Body className="p-2" style={{ position: 'relative', height: `${barHeight}px`, padding: 0 }}>
-  {/* Blue bar for the entire day */}
-  <div className="bg-info" style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}></div>
-  {/* Red bar for allocated time */}
-  {baySchedule.map((booking, index) => (
-    <div
-      key={index}
-      className="bg-danger"
-      style={{
-        position: 'absolute',
-        top: `${(parseInt(booking.startTime.split(':')[0], 10) - 7) * timeSlotHeight}px`,
-        height: `${(parseInt(booking.endTime.split(':')[0], 10) - parseInt(booking.startTime.split(':')[0], 10)) * timeSlotHeight}px`,
-        left: 0,
-        right: 0,
-      }}
-    ></div>
-  ))}
-</Card.Body>
+      <Row className="justify-content-md-center">
+        {schedules.map((baySchedule, bayIndex) => (
+          <Col key={bayIndex} className="mb-4" style={{ flex: 0, maxWidth: '10%' }}> {/* Inline styles for equal width */}
+            <Card>
+              <Card.Header className="bg-primary text-white">
+                {`Bay ${bayIndex + 1}`}
+              </Card.Header>
+              <Card.Body className="p-2" style={{ position: 'relative', height: `${barHeight}px`, padding: 0 }}>
+                {/* Blue bar for the entire day */}
+                <div className="bg-info" style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}></div>
+                {/* Red bar for allocated time */}
+                {baySchedule.map((booking, index) => (
+                  <div
+                    key={index}
+                    className="bg-danger"
+                    style={{
+                      position: 'absolute',
+                      top: `${(parseInt(booking.startTime.split(':')[0], 10) - 7) * timeSlotHeight}px`,
+                      height: `${(parseInt(booking.endTime.split(':')[0], 10) - parseInt(booking.startTime.split(':')[0], 10)) * timeSlotHeight}px`,
+                      left: 0,
+                      right: 0,
+                    }}
+                  ></div>
+                ))}
+              </Card.Body>
 
-        </Card>
-      </Col>
-    ))}
-  </Row>
-</Container>
+            </Card>
+          </Col>
+        ))}
+      </Row>
+    </Container>
 
-  
+
   );
 };
 

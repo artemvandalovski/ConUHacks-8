@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import SelectionCalendar from './components/SelectionCalendar';
 import DayViewCalendar from './components/DayViewCalendar';
 import Dashboard from './components/Dashboard';
+import { getScheduleByDate } from './services/scheduleService';
 
 const App: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
@@ -10,6 +11,14 @@ const App: React.FC = () => {
     setSelectedDate(date);
     // You can perform additional actions when a date is selected
   };
+
+  useEffect(() => {
+    if (selectedDate) {
+      getScheduleByDate(selectedDate.toLocaleDateString()).then((response) => {
+        console.log(response);
+      });
+    }
+  }, [selectedDate]);
 
   return (
     <div className="App" style={{ display: 'flex', height: '100vh' }}>
