@@ -20,7 +20,7 @@ class Appointment:
         return {
             "start_time": self.start_time,
             "end_time": self.end_time,
-            "vehicle": self.vehicle,
+            "vehicle": self.vehicle.to_dict(),
         }
 
     @classmethod
@@ -30,10 +30,10 @@ class Appointment:
 
 class Bay:
     def __init__(self):
-        self.schedule = []
+        self.appointments = []
 
     def is_slot_available(self, start_time, end_time):
-        for appointment in self.schedule:
+        for appointment in self.appointments:
             appointment_start_time = datetime.strptime(
                 appointment.start_time, DATE_FORMAT
             )
@@ -52,23 +52,25 @@ class Bay:
         end_time = start_time + timedelta(minutes=vehicle.servicing_time)
         if not self.is_slot_available(start_time, end_time):
             return False
-        self.schedule.append(
+        self.appointments.append(
             Appointment(
                 start_time.strftime(DATE_FORMAT),
                 end_time.strftime(DATE_FORMAT),
-                vehicle.type,
+                vehicle,
             )
         )
         return True
 
     def to_dict(self):
-        return {"schedule": [appointment.to_dict() for appointment in self.schedule]}
+        return {
+            "appointments": [appointment.to_dict() for appointment in self.appointments]
+        }
 
     @classmethod
     def from_dict(cls, data):
         bay = cls()
-        bay.schedule = [
-            Appointment.from_dict(appointment) for appointment in data["schedule"]
+        bay.appointments = [
+            Appointment.from_dict(appointment) for appointment in data["appointments"]
         ]
         return bay
 

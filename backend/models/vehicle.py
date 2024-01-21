@@ -4,6 +4,17 @@ class Vehicle:
         self.servicing_time = servicing_time
         self.charge = charge
 
+    def to_dict(self):
+        return {
+            "type": self.type,
+            "servicing_time": self.servicing_time,
+            "charge": self.charge,
+        }
+
+    @classmethod
+    def from_dict(cls, data):
+        return cls(**data)
+
 
 VEHICLES = [
     Vehicle("compact", 30, 150),

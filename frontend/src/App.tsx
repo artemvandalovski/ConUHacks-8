@@ -3,9 +3,10 @@ import SelectionCalendar from './components/SelectionCalendar';
 import DayViewCalendar from './components/DayViewCalendar';
 import Dashboard from './components/Dashboard';
 import { getScheduleByDate } from './services/scheduleService';
+import { Schedule } from './models/schedule';
 
 const App: React.FC = () => {
-    const [selectedDate, setSelectedDate] = useState<Date | null>(new Date('2022-10-02'));
+    const [selectedDate, setSelectedDate] = useState<Date | null>(new Date('2022-10-04'));
 
     const handleDateSelect = (date: Date) => {
         setSelectedDate(date);
@@ -14,10 +15,8 @@ const App: React.FC = () => {
 
     useEffect(() => {
         if (selectedDate) {
-            console.log(selectedDate.toLocaleDateString());
-
-            getScheduleByDate(selectedDate.toLocaleDateString()).then((schedule: any) => {
-                console.log(schedule);
+            getScheduleByDate(selectedDate.toLocaleDateString()).then((schedule: Schedule) => {
+                console.log(schedule.bays["compact"].appointments[0].vehicle);
             });
         }
     }, [selectedDate]);
