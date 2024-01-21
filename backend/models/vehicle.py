@@ -1,6 +1,6 @@
 class Vehicle:
     def __init__(self, vehicle_type, servicing_time, charge):
-        self.vehicle_type = vehicle_type
+        self.type = vehicle_type
         self.servicing_time = servicing_time
         self.charge = charge
 
@@ -16,5 +16,5 @@ VEHICLES = [
 
 def get_vehicle_by_type(vehicle_type):
     for vehicle in VEHICLES:
-        if vehicle.vehicle_type == vehicle_type:
+        if vehicle.type == vehicle_type:
             return vehicle

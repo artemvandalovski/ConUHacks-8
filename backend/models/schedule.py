@@ -1,5 +1,5 @@
-from models.vehicle import get_vehicle_by_type
 from datetime import datetime, timedelta
+from models.vehicle import get_vehicle_by_type
 
 
 class Request:
@@ -12,28 +12,17 @@ class Request:
 class Schedule:
     def __init__(self, date):
         self.date = date
-        self.schedules = {}
-        self.profit = 0
-        self.loss = 0
+        self.schedule = {}
 
-    def add_appointment(self, request):
-        if not self.is_slot_available(request):
-            return False
-        self.schedule[request.appointment_date] = request
-        return True
-
-    def is_slot_available(self, request):
-        vehicle = get_vehicle_by_type(request.vehicle_type)
-        if not vehicle:
-            return False
-        start_time = datetime.strptime(request.appointment_date, "%Y-%m-%d %H:%M")
+    def is_slot_available(self, date, vehicle):
+        start_time = datetime.strptime(date, "%Y-%m-%d %H:%M")
         end_time = start_time + timedelta(minutes=vehicle.servicing_time)
         for appointment in self.schedule.values():
             appointment_start_time = datetime.strptime(
                 appointment.appointment_date, "%Y-%m-%d %H:%M"
             )
             appointment_end_time = appointment_start_time + timedelta(
-                minutes=vehicle.servicing_time
+                minutes=get_vehicle_by_type(appointment.vehicle_type).servicing_time
             )
             if (
                 start_time <= appointment_start_time
@@ -43,3 +32,7 @@ class Schedule:
                 and start_time <= appointment_end_time
             ):
                 return False
+
+    def add_appointment(self, request):
+        self.schedule[request.request_date] = request
+        print("added" + request.request_date)
