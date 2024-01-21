@@ -1,22 +1,14 @@
-from . import SqliteDict, db_path
-from models.schedule import Schedule
+from . import db_path, SqliteDict, dumps, loads
 
 
 def get_schedule(date):
     with SqliteDict(db_path) as db:
-        print(f"Getting schedule for {date}")
-        schedule = db.get(date)
-        if schedule:
-            print(f"Got schedule for {date}")
-            return Schedule.from_dict(schedule)
-        print(f"Schedule for {date} not found")
+        if date in db:
+            return loads(db[date])
         return None
 
 
 def save_schedule(schedule):
     with SqliteDict(db_path) as db:
-        print(f"Saving schedule for {schedule.date}")
-        db[schedule.date] = schedule.to_dict()
+        db[schedule.date] = dumps(schedule)
         db.commit()
-        print(f"Saved schedule for {schedule.date}")
-        return schedule

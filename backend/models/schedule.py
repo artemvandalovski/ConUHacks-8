@@ -16,6 +16,17 @@ class Appointment:
         self.end_time = end_time
         self.vehicle = vehicle
 
+    def to_dict(self):
+        return {
+            "start_time": self.start_time,
+            "end_time": self.end_time,
+            "vehicle": self.vehicle,
+        }
+
+    @classmethod
+    def from_dict(cls, data):
+        return cls(**data)
+
 
 class Bay:
     def __init__(self):
@@ -40,7 +51,6 @@ class Bay:
         start_time = datetime.strptime(date, DATE_FORMAT)
         end_time = start_time + timedelta(minutes=vehicle.servicing_time)
         if not self.is_slot_available(start_time, end_time):
-            # print(f"Appointment for {vehicle.type} at {date} is not available")
             return False
         self.schedule.append(
             Appointment(
@@ -49,18 +59,17 @@ class Bay:
                 vehicle.type,
             )
         )
-        # print(f"Added appointment for {vehicle.type} at {date}")
         return True
 
     def to_dict(self):
-        return {
-            "schedule": self.schedule,
-        }
+        return {"schedule": [appointment.to_dict() for appointment in self.schedule]}
 
     @classmethod
-    def from_dict(cls, bay_dict):
+    def from_dict(cls, data):
         bay = cls()
-        bay.schedule = bay_dict["schedule"]
+        bay.schedule = [
+            Appointment.from_dict(appointment) for appointment in data["schedule"]
+        ]
         return bay
 
 
@@ -84,7 +93,7 @@ class Schedule:
 
     def add_appointment(self, date, vehicle):
         for bay in self.bays:
-            if bay == vehicle.type:  # TODO: add logic for free stations
+            if vehicle.type == bay:  # TODO: add logic for free stations
                 if self.bays[bay].add_appointment(date, vehicle):
                     self.profit += vehicle.charge
                     return True
@@ -96,35 +105,13 @@ class Schedule:
             "date": self.date,
             "profit": self.profit,
             "loss": self.loss,
-            "bays": {
-                "compact": self.bays["compact"].to_dict(),
-                "medium": self.bays["medium"].to_dict(),
-                "full-size": self.bays["full-size"].to_dict(),
-                "class 1 truck": self.bays["class 1 truck"].to_dict(),
-                "class 2 truck": self.bays["class 2 truck"].to_dict(),
-                "free station 1": self.bays["free station 1"].to_dict(),
-                "free station 2": self.bays["free station 2"].to_dict(),
-                "free station 3": self.bays["free station 3"].to_dict(),
-                "free station 4": self.bays["free station 4"].to_dict(),
-                "free station 5": self.bays["free station 5"].to_dict(),
-            },
+            "bays": {bay: self.bays[bay].to_dict() for bay in self.bays},
         }
 
     @classmethod
-    def from_dict(cls, schedule_dict):
-        schedule = cls(schedule_dict["date"])
-        schedule.profit = schedule_dict["profit"]
-        schedule.loss = schedule_dict["loss"]
-        schedule.bays = {
-            "compact": Bay.from_dict(schedule_dict["bays"]["compact"]),
-            "medium": Bay.from_dict(schedule_dict["bays"]["medium"]),
-            "full-size": Bay.from_dict(schedule_dict["bays"]["full-size"]),
-            "class 1 truck": Bay.from_dict(schedule_dict["bays"]["class 1 truck"]),
-            "class 2 truck": Bay.from_dict(schedule_dict["bays"]["class 2 truck"]),
-            "free station 1": Bay.from_dict(schedule_dict["bays"]["free station 1"]),
-            "free station 2": Bay.from_dict(schedule_dict["bays"]["free station 2"]),
-            "free station 3": Bay.from_dict(schedule_dict["bays"]["free station 3"]),
-            "free station 4": Bay.from_dict(schedule_dict["bays"]["free station 4"]),
-            "free station 5": Bay.from_dict(schedule_dict["bays"]["free station 5"]),
-        }
+    def from_dict(cls, data):
+        schedule = cls(data["date"])
+        schedule.profit = data["profit"]
+        schedule.loss = data["loss"]
+        schedule.bays = {bay: Bay.from_dict(data["bays"][bay]) for bay in data["bays"]}
         return schedule

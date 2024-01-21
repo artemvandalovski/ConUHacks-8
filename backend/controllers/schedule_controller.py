@@ -1,10 +1,11 @@
-from . import app, cross_origin, request, jsonify
+from . import app, cross_origin, jsonify
 from services.schedule_service import get_schedule_by_date
 
 
-@app.route("/schedule", methods=["POST"])
+@app.route("/schedule/<date>", methods=["GET"])
 @cross_origin()
-def get_schedule():
-    date = request.json["date"]
+def get_schedule(date):
     schedule = get_schedule_by_date(date)
-    return jsonify(schedule.to_dict())
+    if schedule:
+        return jsonify(schedule.to_dict())
+    return jsonify({"error": "Schedule not found"}), 404
