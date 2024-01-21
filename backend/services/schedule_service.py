@@ -2,7 +2,7 @@ import pandas as pd
 from models.schedule import Schedule
 from models.vehicle import get_vehicle_by_type
 from services.request_service import validate_dates
-from db.schedule_db import get_schedule, save_schedule
+from repo.schedule_repo import get_schedule, save_schedule
 
 df = pd.read_csv(
     "resources/datafile.csv",
@@ -15,7 +15,7 @@ def filter_by_appointment_date(date):
     return df.loc[df["appointment_date"].str.contains(date)]
 
 
-def generate_schedule_by_date(date):
+def create_schedule_by_date(date):
     schedule = Schedule(date)
 
     requests_by_date = filter_by_appointment_date(date)
@@ -33,5 +33,5 @@ def generate_schedule_by_date(date):
 def get_schedule_by_date(date):
     schedule = get_schedule(date)
     if schedule is None:
-        schedule = generate_schedule_by_date(date)
+        schedule = create_schedule_by_date(date)
     return schedule
