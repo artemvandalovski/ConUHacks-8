@@ -7,7 +7,7 @@ import DayScheduler from './components/DayScheduler';
 
 
 const App: React.FC = () => {
-  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date('2022-10-04'));
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [schedule, setSchedule] = useState<Schedule | null>(null);
 
   useEffect(() => {
@@ -33,7 +33,7 @@ const App: React.FC = () => {
         </div>
       </div>
       <div style={{ width: '50%', overflow: 'auto' }}>
-        <DayScheduler schedule={schedule} />
+        {schedule && <DayScheduler appointments={schedule?.bays["compact"].appointments} />}
       </div>
     </div>
   );
