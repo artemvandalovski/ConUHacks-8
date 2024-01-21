@@ -14,7 +14,7 @@ def filter_by_appointment_date(date):
     return df.loc[df["appointment_date"].str.contains(date)]
 
 
-def load_schedule(date):
+def generate_schedule_by_date(date):
     schedule = Schedule(date)
 
     requests_by_date = filter_by_appointment_date(date)
@@ -25,5 +25,4 @@ def load_schedule(date):
         vehicle = get_vehicle_by_type(request.vehicle_type)
         schedule.add_appointment(request.appointment_date, vehicle)
 
-    print(f"Profit: ${schedule.profit}")
-    print(f"Loss: ${schedule.loss}")
+    return schedule
