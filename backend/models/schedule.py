@@ -74,3 +74,20 @@ class Schedule:
                     return True
         self.loss += vehicle.charge
         return False
+
+    def to_dict(self):
+        return {
+            "date": self.date,
+            "profit": self.profit,
+            "loss": self.loss,
+            "bays": {key: value.to_dict() for key, value in self.bays.items()},
+        }
+
+    @classmethod
+    def from_dict(cls, data):
+        schedule = cls(date=data["date"])
+        schedule.profit = data["profit"]
+        schedule.loss = data["loss"]
+        for key, value in data["bays"].items():
+            schedule.bays[key] = Bay.from_dict(value)
+        return schedule

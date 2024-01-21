@@ -2,6 +2,7 @@ import pandas as pd
 from models.schedule import Schedule
 from models.vehicle import get_vehicle_by_type
 from services.request_service import validate_dates
+from db.schedule_db import get_schedule, save_schedule
 
 df = pd.read_csv(
     "resources/datafile.csv",
@@ -25,4 +26,12 @@ def generate_schedule_by_date(date):
         vehicle = get_vehicle_by_type(request.vehicle_type)
         schedule.add_appointment(request.appointment_date, vehicle)
 
+    save_schedule(schedule)
+    return schedule
+
+
+def get_schedule_by_date(date):
+    schedule = get_schedule(date)
+    if schedule is None:
+        schedule = generate_schedule_by_date(date)
     return schedule
