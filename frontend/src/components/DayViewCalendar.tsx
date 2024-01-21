@@ -1,4 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Card from 'react-bootstrap/Card';
+import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 
 const initialAvailability = { startTime: '07:00', endTime: '19:00' };
 const totalHours = 12; // Total hours from 7 am to 7 pm
@@ -11,20 +16,18 @@ const DayViewCalendar = () => {
   );
 
   const timeRangesPerBay = [
-    [[8, 10], [11, 13], [14, 15.5], [9, 18]],
+    [[8, 10], [11, 13], [14, 15.5], [16, 18]],
     [[8, 11], [14, 16]],
     [[8, 10.5], [11, 14]],
     // Add more time ranges for other bays as needed
   ];
 
-  // Function to convert numeric time to HH:mm format
   const formatTime = (time: any) => {
     const hours = Math.floor(time);
     const minutes = Math.round((time - hours) * 60);
     return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
   };
 
-  // Function to update schedules with time ranges
   const updateSchedules = () => {
     setSchedules((prevSchedules) => {
       const newSchedules = new Array(10).fill([]).map(() => []);
@@ -42,45 +45,44 @@ const DayViewCalendar = () => {
   };
 
   useEffect(() => {
-    // Uncomment the line below to update schedules with the time ranges
     updateSchedules();
-  }, []); // Empty dependency array ensures the effect runs once after the initial render
+  }, []);
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(10, 1fr)', gap: '8px' }}>
-      {/* Bay columns */}
-      {schedules.map((baySchedule, bayIndex) => (
-        <div key={bayIndex} style={{ border: '1px solid #ddd', padding: '8px' }}>
-          <div style={{ backgroundColor: '#f2f2f2', fontWeight: 'bold', padding: '8px' }}>{`Bay ${bayIndex + 1}`}</div>
-          {/* Progress bar for each bay */}
-          <div style={{ position: 'relative', marginTop: '8px' }}>
-            {/* Red bar for allocated time */}
-            {baySchedule.map((booking, index) => (
-              <div
-                key={index}
-                style={{
-                  position: 'absolute',
-                  top: `${(parseInt(booking.startTime.split(':')[0], 10) - 7) * timeSlotHeight}px`,
-                  height: `${(parseInt(booking.endTime.split(':')[0], 10) - parseInt(booking.startTime.split(':')[0], 10)) * timeSlotHeight}px`,
-                  backgroundColor: '#dc3545', // Red color
-                  width: '100%',
-                }}
-              ></div>
-            ))}
-            {/* Blue bar for the entire day */}
-            <div
-              style={{
-                position: 'absolute',
-                top: '0',
-                height: '100%',
-                backgroundColor: '#007bff', // Blue color
-                width: '100%',
-              }}
-            ></div>
-          </div>
-        </div>
-      ))}
-    </div>
+    <Container className="mt-3">
+  <Row className="justify-content-md-center">
+    {schedules.map((baySchedule, bayIndex) => (
+      <Col key={bayIndex} className="mb-4" style={{ flex: 0, maxWidth: '10%' }}> {/* Inline styles for equal width */}
+        <Card>
+          <Card.Header className="bg-primary text-white">
+            {`Bay ${bayIndex + 1}`}
+          </Card.Header>
+          <Card.Body className="p-2" style={{ position: 'relative', height: `${barHeight}px`, padding: 0 }}>
+  {/* Blue bar for the entire day */}
+  <div className="bg-info" style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}></div>
+  {/* Red bar for allocated time */}
+  {baySchedule.map((booking, index) => (
+    <div
+      key={index}
+      className="bg-danger"
+      style={{
+        position: 'absolute',
+        top: `${(parseInt(booking.startTime.split(':')[0], 10) - 7) * timeSlotHeight}px`,
+        height: `${(parseInt(booking.endTime.split(':')[0], 10) - parseInt(booking.startTime.split(':')[0], 10)) * timeSlotHeight}px`,
+        left: 0,
+        right: 0,
+      }}
+    ></div>
+  ))}
+</Card.Body>
+
+        </Card>
+      </Col>
+    ))}
+  </Row>
+</Container>
+
+  
   );
 };
 
