@@ -1,4 +1,4 @@
-from sqlitedict import SqliteDict
+from . import SqliteDict
 from models.schedule import Schedule
 
 db_path = "resources/schedule_db.sqlite"
