@@ -1,7 +1,4 @@
-import sqlite3 as sql
-from datetime import datetime, timedelta
-from models.request import Request
-from models.vehicle import Vehicle
+from datetime import datetime
 
 
 class RequestValidation:
