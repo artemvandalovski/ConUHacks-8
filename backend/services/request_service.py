@@ -15,8 +15,12 @@ def validate_dates(request):
     if start_date < request_date:
         is_valid = False
 
-    # Check if date is exactly between 7am and 7pm
-    if start_date.hour < 7 or (end_date.hour == 19 and end_date.minute > 0):
+    # Check if appointment is exactly between 7am and 7pm
+    if (
+        start_date.hour < 7
+        or (end_date.hour == 19 and end_date.minute > 0)
+        or end_date.hour > 19
+    ):
         is_valid = False
 
     return is_valid
