@@ -1,7 +1,9 @@
+import { Vehicle } from "./vehicle";
+
 export interface Appointment {
     start_time: string;
     end_time: string;
-    vehicle: any;
+    vehicle: Vehicle;
 }
 
 export interface Bay {
