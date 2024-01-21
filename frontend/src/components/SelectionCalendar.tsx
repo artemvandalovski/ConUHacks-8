@@ -22,7 +22,7 @@ const SelectionCalendar: React.FC<CalendarProps> = ({ onSelectDate }) => {
       <Calendar
         onChange={handleDateChange as any}
         value={selectedDate instanceof Date ? selectedDate : undefined}
-        calendarType="US"
+        calendarType="gregory"
       />
     </div>
   );
