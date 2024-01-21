@@ -1,0 +1,10 @@
+.calendar-container .react-calendar {
+    width: 95%;
+    /* If you want to remove the border and box-shadow to match the full-width style */
+    border: none;
+    box-shadow: none;
+    margin: auto;
+  }
+  
+  /* Add additional custom styles as needed to match your application's design */
+  
