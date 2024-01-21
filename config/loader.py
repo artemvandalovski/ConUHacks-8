@@ -17,7 +17,7 @@ def load_config(config_path: str) -> Dict:
 
 
 def load_db(config: Dict) -> Tuple[str, str, str, str, int]:
-    """
+    '''
     Extract database information from a configuration dictionary.
 
     Parameters:
@@ -25,12 +25,12 @@ def load_db(config: Dict) -> Tuple[str, str, str, str, int]:
 
     Returns:
     - tuple: A tuple containing database information (dbname, user, password, host, port).
-    """
-    database_info = config["database"]
-    dbname = database_info["dbname"]
-    user = database_info["user"]
-    password = database_info["password"]
-    host = database_info["host"]
-    port = database_info["port"]
+    '''
+    database_info = config['database']
+    dbname = database_info['dbname']
+    user = database_info['user']
+    password = database_info['password']
+    host = database_info['host']
+    port = database_info['port']
     
     return dbname, user, password, host, port
