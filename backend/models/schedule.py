@@ -3,13 +3,6 @@ from datetime import datetime, timedelta
 DATE_FORMAT = "%Y-%m-%d %H:%M"
 
 
-class Request:
-    def __init__(self, request_date, appointment_date, vehicle_type):
-        self.request_date = request_date
-        self.appointment_date = appointment_date
-        self.vehicle_type = vehicle_type
-
-
 class Appointment:
     def __init__(self, start_time, end_time, vehicle):
         self.start_time = start_time
