@@ -1,4 +1,4 @@
-from . import timedelta, to_date, from_date
+from . import td, to_date, from_date
 from .request import Request
 from .vehicle import Vehicle
 
@@ -7,7 +7,7 @@ class Appointment:
     def __init__(self, request: Request):
         self.vehicle = request.vehicle
         self.start_time = request.appointment_date
-        self.end_time = self.start_time + timedelta(minutes=self.vehicle.servicing_time)
+        self.end_time = self.start_time + td(minutes=self.vehicle.servicing_time)
 
     def to_dict(self):
         return {

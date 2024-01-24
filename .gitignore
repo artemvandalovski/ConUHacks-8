@@ -1,8 +1,0 @@
-# Env vars
-project_config.json
-
-# Database
-tire_change_shop.db
-
-# Cache
-__pycache__

@@ -1,4 +1,4 @@
-from . import df
+from . import df, get_unique_days
 from models.request import Request
 from models.schedule import Schedule
 from repo.schedule_repo import get_schedule, save_schedule
@@ -19,10 +19,14 @@ def get_schedule_by_date(date):
 def create_schedule_by_date(date):
     schedule = Schedule(date)
     requests = get_requests_by_appointment_date(date)
-    requests.sort_values(by="request_date")
     for _, request in requests.iterrows():
         request = Request.from_csv(request)
         if validate_request(request):
             schedule.add_appointment(request)
     save_schedule(schedule)
     return schedule
+
+
+def create_all_schedules():
+    for date in get_unique_days:
+        create_schedule_by_date(str(date))

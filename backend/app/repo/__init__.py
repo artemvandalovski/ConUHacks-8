@@ -1,4 +1,4 @@
 from pickle import dumps, loads
 from sqlitedict import SqliteDict
 
-db_path = "resources/schedule_db.sqlite"
+db_path = "app/utils/schedule_db.sqlite"

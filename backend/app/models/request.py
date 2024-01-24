@@ -1,11 +1,11 @@
-from . import to_date, datetime
+from . import to_date, dt
 from .vehicle import Vehicle
 
 
 class Request:
     def __init__(self, request_date, appointment_date, vehicle_type):
-        self.request_date: datetime = to_date(request_date)
-        self.appointment_date: datetime = to_date(appointment_date)
+        self.request_date: dt = to_date(request_date)
+        self.appointment_date: dt = to_date(appointment_date)
         self.vehicle: Vehicle = Vehicle.get_vehicle_by_type(vehicle_type)
 
     def to_dict(self):

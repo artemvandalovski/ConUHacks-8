@@ -1,4 +1,4 @@
-from . import Enum, timedelta
+from . import Enum
 from .appointment import Appointment
 from .request import Request
 
