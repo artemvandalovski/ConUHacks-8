@@ -1,7 +1,7 @@
-from enum import Enum
+from . import Enum
 
 
-class VehicleTypes(Enum):
+class Vehicle(Enum):
     COMPACT = ("compact", 30, 150)
     MEDIUM = ("medium", 30, 150)
     FULL_SIZE = ("full-size", 30, 150)
@@ -13,12 +13,24 @@ class VehicleTypes(Enum):
         self.servicing_time = servicing_time
         self.charge = charge
 
-    def __str__(self):
-        return self.type
+    @staticmethod
+    def get_vehicle_by_type(vehicle_type: str):
+        for vehicle in Vehicle:
+            if vehicle.type == vehicle_type:
+                return vehicle
+        return None
 
+    def to_dict(self):
+        return {
+            "vehicle_type": self.type,
+            "servicing_time": self.servicing_time,
+            "charge": self.charge,
+        }
 
-def get_vehicle_by_type(vehicle_type: str) -> "VehicleTypes":
-    for vehicle in VehicleTypes:
-        if vehicle.type == vehicle_type:
-            return vehicle
-    return None
+    @classmethod
+    def from_dict(cls, data):
+        return cls(
+            data["vehicle_type"],
+            data["servicing_time"],
+            data["charge"],
+        )
