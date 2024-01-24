@@ -1,53 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import SelectionCalendar from './components/SelectionCalendar';
-import Dashboard from './components/Dashboard';
-import { getScheduleByDate } from './services/scheduleService';
-import { Schedule } from './models/schedule';
-import DayScheduler from './components/DayScheduler';
-import Select from 'react-select'
+import React from 'react';
+import logo from './logo.svg';
+import './App.css';
 
-const CARS_OPTIONS = [
-  { value: 'compact', label: 'Compact Car' },
-  { value: 'medium', label: 'Medium Car' },
-  { value: 'full-size', label: 'Full-size Car' },
-  { value: 'class 1 truck', label: 'Class 1 Truck' },
-  { value: 'class 2 truck', label: 'Class 2 Truck' },
-]
-
-const App: React.FC = () => {
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [selectedCarType, setSelectedCarType] = useState<string>("");
-  const [schedule, setSchedule] = useState<Schedule | null>(null);
-
-  useEffect(() => {
-    if (selectedDate) {
-      getScheduleByDate(selectedDate.toLocaleDateString()).then((schedule: Schedule) => {
-        setSchedule(schedule);
-        console.log(schedule);
-      });
-    }
-  }, [selectedDate]);
-
-  const handleDateSelect = (date: Date) => {
-    setSelectedDate(date);
-  };
-
+function App() {
   return (
-    <div className="App" style={{ display: 'flex', flexDirection: 'row', height: '100vh' }}>
-      <div style={{ width: '80%', display: 'flex', flexDirection: 'column' }}>
-        <div style={{ flex: 1 }}>
-          <SelectionCalendar onSelectDate={handleDateSelect} />
-          <div style={{ padding: 10 }}>
-            {selectedDate && <Select options={CARS_OPTIONS} onChange={(selectedOption) => setSelectedCarType(selectedOption?.value || "")} />}
-          </div>
-        </div>
-        <div style={{ flex: 1 }}>
-          <Dashboard />
-        </div>
-      </div>
-      <div style={{ width: '50%', overflow: 'auto' }}>
-        {selectedCarType && schedule && <DayScheduler appointments={schedule.bays[selectedCarType].appointments} />}
-      </div>
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.tsx</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
     </div>
   );
 }
