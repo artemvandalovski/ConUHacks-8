@@ -30,8 +30,17 @@ class Bay(Enum):
         return False
 
     def to_dict(self):
-        return [appointment.to_dict() for appointment in self.appointments]
+        return {
+            "bay_type": self.bay_type,
+            "appointments": [
+                appointment.to_dict() for appointment in self.appointments
+            ],
+        }
 
     @classmethod
     def from_dict(cls, data):
-        return cls([Appointment.from_dict(appointment) for appointment in data])
+        bay = cls(data["bay_type"])
+        bay.appointments = [
+            Appointment.from_dict(appointment) for appointment in data["appointments"]
+        ]
+        return bay

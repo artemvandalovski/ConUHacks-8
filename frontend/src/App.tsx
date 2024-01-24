@@ -1,25 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
 import './App.css';
+import { Box, Button } from '@mui/material';
+import { getScheduleByDate } from './services/scheduleService';
+import { Schedule } from './models/schedule';
 
 function App() {
+
+  const [schedule, setSchedule] = useState<Schedule>();
+
+  useEffect(() => {
+    getScheduleByDate('2022-10-05').then((schedule: Schedule) => {
+      setSchedule(schedule);
+    });
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+      <Button variant="contained">Hello World</Button>
+    </Box>
   );
 }
 
