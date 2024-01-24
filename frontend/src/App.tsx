@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import { Box, Button } from '@mui/material';
 import { getScheduleByDate } from './services/scheduleService';
 import { Schedule } from './models/schedule';
+import DayScheduler from './components/DayScheduler';
+import { Container, Grid, MantineProvider } from '@mantine/core';
+import { DateTimePicker } from '@mantine/dates';
 
 function App() {
 
@@ -15,9 +17,18 @@ function App() {
   }, []);
 
   return (
-    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-      <Button variant="contained">Hello World</Button>
-    </Box>
+    <MantineProvider>
+      <Container fluid>
+        <Grid>
+          <Grid.Col span={6}>
+            <DateTimePicker label="Pick date and time" placeholder="Pick date and time" />
+          </Grid.Col>
+          <Grid.Col span={6}>
+            {schedule && <DayScheduler schedule={schedule} />}
+          </Grid.Col>
+        </Grid>
+      </Container>
+    </MantineProvider>
   );
 }
 
