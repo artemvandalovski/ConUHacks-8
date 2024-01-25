@@ -19,7 +19,6 @@ const DayScheduler = ({ schedule }: { schedule: Schedule }) => {
     const [appointmentList, setAppointmentList] = useState<any[]>([]);
 
     useEffect(() => {
-        console.log(schedule);
         const transformedAppointments = schedule.bays.map(bay => {
             return bay.appointments.map(appointment => ({
                 title: getBayTypeByString(appointment.vehicle.vehicle_type),

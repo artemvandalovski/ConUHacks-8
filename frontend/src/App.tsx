@@ -8,22 +8,25 @@ import { DateTimePicker } from '@mantine/dates';
 
 function App() {
 
+  const [date, setDate] = useState<Date | null>(null);
   const [schedule, setSchedule] = useState<Schedule>();
 
   useEffect(() => {
-    getScheduleByDate('2022-10-05').then((schedule: Schedule) => {
-      setSchedule(schedule);
-    });
-  }, []);
+    if (date) {
+      getScheduleByDate(date.toISOString().split('T')[0]).then((schedule: Schedule) => {
+        setSchedule(schedule);
+      });
+    }
+  }, [date]);
 
   return (
     <MantineProvider>
       <Container fluid>
         <Grid>
-          {/* <Grid.Col span={6}>
-            <DateTimePicker label="Pick date and time" placeholder="Pick date and time" />
-          </Grid.Col> */}
-          <Grid.Col span={12}>
+          <Grid.Col span={6}>
+            <DateTimePicker label="Pick date and time" placeholder="Pick date and time" value={date} onChange={setDate} />
+          </Grid.Col>
+          <Grid.Col span={6}>
             {schedule && <DayScheduler schedule={schedule} />}
           </Grid.Col>
         </Grid>
