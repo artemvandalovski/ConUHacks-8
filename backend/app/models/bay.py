@@ -18,7 +18,9 @@ class Bay(Enum):
     def is_slot_available(self, start_time, end_time):
         for appointment in self.appointments:
             app_start, app_end = appointment.start_time, appointment.end_time
-            if (app_start <= start_time < app_end) or (app_start < end_time <= app_end):
+            if (start_time >= app_start and start_time <= app_end) or (
+                end_time >= app_start and end_time <= app_end
+            ):
                 return False
         return True
 

@@ -20,10 +20,10 @@ function App() {
     <MantineProvider>
       <Container fluid>
         <Grid>
-          <Grid.Col span={6}>
+          {/* <Grid.Col span={6}>
             <DateTimePicker label="Pick date and time" placeholder="Pick date and time" />
-          </Grid.Col>
-          <Grid.Col span={6}>
+          </Grid.Col> */}
+          <Grid.Col span={12}>
             {schedule && <DayScheduler schedule={schedule} />}
           </Grid.Col>
         </Grid>
