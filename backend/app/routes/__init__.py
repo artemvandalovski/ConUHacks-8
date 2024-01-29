@@ -6,4 +6,4 @@ CORS(app)
 
 app.config["CORS_HEADERS"] = "Content-Type"
 
-from routes import schedule_routes
+from app.routes import schedule_routes

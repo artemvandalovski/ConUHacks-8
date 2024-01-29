@@ -1,6 +1,7 @@
-from routes import app
-from services import schedule_service
 import threading
+
+from app.routes import app
+from app.services import schedule_service
 
 
 def main():

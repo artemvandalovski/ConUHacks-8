@@ -19,23 +19,21 @@ const DayScheduler = ({ schedule }: { schedule: Schedule }) => {
     const [appointmentList, setAppointmentList] = useState<any[]>([]);
 
     useEffect(() => {
-        const transformedAppointments = schedule.bays.map(bay => {
-            return bay.appointments.map(appointment => ({
+        const transformedAppointments = schedule.bays.flatMap(bay =>
+            bay.appointments.map(appointment => ({
                 title: getBayTypeByString(appointment.vehicle.vehicle_type),
                 bayType: getBayTypeByString(bay.bay_type),
                 startDate: appointment.start_time,
                 endDate: appointment.end_time,
-            }));
-        }).flat();
+            }))
+        );
         setAppointmentList(transformedAppointments);
-
     }, [schedule]);
 
     const bays = Object.keys(BayType).map(key => ({
         id: BayType[key as keyof typeof BayType],
         text: BayType[key as keyof typeof BayType],
     }));
-
 
     const resources = [{
         fieldName: 'bayType',

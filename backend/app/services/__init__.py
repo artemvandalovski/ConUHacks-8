@@ -2,7 +2,7 @@ import pandas as pd
 from datetime import datetime as dt, timedelta as td
 
 df = pd.read_csv(
-    "app/utils/datafile.csv",
+    "utils/datafile.csv",
     header=None,
     names=["request_date", "appointment_date", "vehicle_type"],
 )

@@ -1,5 +1,5 @@
 from . import app, cross_origin, jsonify
-from services.schedule_service import get_schedule_by_date
+from ..services.schedule_service import get_schedule_by_date
 
 
 @app.route("/schedule/<date>", methods=["GET"])

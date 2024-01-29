@@ -1,5 +1,5 @@
 from . import td
-from models.request import Request
+from ..models.request import Request
 
 
 def validate_request(request: Request):

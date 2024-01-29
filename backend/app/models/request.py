@@ -20,7 +20,7 @@ class Request:
         return cls(
             data["request_date"],
             data["appointment_date"],
-            data["vehicle"]["vehicle_type"],
+            data["vehicle"]["type"],
         )
 
     @classmethod
