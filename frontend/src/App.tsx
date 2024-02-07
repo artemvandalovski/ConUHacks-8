@@ -14,9 +14,8 @@ function App() {
   useEffect(() => {
     if (date) {
       getScheduleByDate(date.toISOString().split('T')[0]).then((schedule: Schedule) => {
-        schedule.bays.forEach(bay =>
-          console.log(bay.appointments.length)
-        );
+        console.log(schedule);
+
         setSchedule(schedule);
       });
     }

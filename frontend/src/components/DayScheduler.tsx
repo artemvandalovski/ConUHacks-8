@@ -21,7 +21,7 @@ const DayScheduler = ({ schedule }: { schedule: Schedule }) => {
     useEffect(() => {
         const transformedAppointments = schedule.bays.flatMap(bay =>
             bay.appointments.map(appointment => ({
-                title: getBayTypeByString(appointment.vehicle.vehicle_type),
+                title: getBayTypeByString(appointment.vehicle.type),
                 bayType: getBayTypeByString(bay.bay_type),
                 startDate: appointment.start_time,
                 endDate: appointment.end_time,

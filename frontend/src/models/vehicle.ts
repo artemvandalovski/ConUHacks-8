@@ -1,5 +1,5 @@
 export interface Vehicle {
-    vehicle_type: string;
+    type: string;
     servicing_time: number;
     charge: number;
 }
