@@ -10,6 +10,7 @@ def get_requests_by_appointment_date(date):
 
 
 def get_schedule_by_date(date):
+    print("Getting schedule for date:", date)
     schedule = get_schedule(date)
     if schedule is None:
         schedule = create_schedule_by_date(date)
@@ -17,6 +18,7 @@ def get_schedule_by_date(date):
 
 
 def create_schedule_by_date(date):
+    print("Creating schedule for date:", date)
     schedule = Schedule(date)
     requests = get_requests_by_appointment_date(date)
     for _, request in requests.iterrows():
@@ -28,5 +30,6 @@ def create_schedule_by_date(date):
 
 
 def create_all_schedules():
+    print("Creating all schedules")
     for date in get_unique_days:
         create_schedule_by_date(str(date))
