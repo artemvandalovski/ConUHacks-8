@@ -22,15 +22,11 @@ class Vehicle(Enum):
 
     def to_dict(self):
         return {
-            "vehicle_type": self.type,
+            "type": self.type,
             "servicing_time": self.servicing_time,
             "charge": self.charge,
         }
 
     @classmethod
     def from_dict(cls, data):
-        return cls(
-            data["vehicle_type"],
-            data["servicing_time"],
-            data["charge"],
-        )
+        return cls(data["type"], data["servicing_time"], data["charge"])

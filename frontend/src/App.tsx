@@ -1,54 +1,39 @@
-import React, { useState, useEffect } from 'react';
-import SelectionCalendar from './components/SelectionCalendar';
-import Dashboard from './components/Dashboard';
+import { useEffect, useState } from 'react';
+import './App.css';
 import { getScheduleByDate } from './services/scheduleService';
 import { Schedule } from './models/schedule';
 import DayScheduler from './components/DayScheduler';
-import Select from 'react-select'
+import { Container, Grid, MantineProvider } from '@mantine/core';
+import { DatePicker } from '@mantine/dates';
 
-const CARS_OPTIONS = [
-  { value: 'compact', label: 'Compact Car' },
-  { value: 'medium', label: 'Medium Car' },
-  { value: 'full-size', label: 'Full-size Car' },
-  { value: 'class 1 truck', label: 'Class 1 Truck' },
-  { value: 'class 2 truck', label: 'Class 2 Truck' },
-]
-
-const App: React.FC = () => {
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [selectedCarType, setSelectedCarType] = useState<string>("");
-  const [schedule, setSchedule] = useState<Schedule | null>(null);
+function App() {
+  const DEFAULT_DATE = new Date(2022, 9);
+  const [date, setDate] = useState<Date | null>(DEFAULT_DATE);
+  const [schedule, setSchedule] = useState<Schedule>();
 
   useEffect(() => {
-    if (selectedDate) {
-      getScheduleByDate(selectedDate.toLocaleDateString()).then((schedule: Schedule) => {
-        setSchedule(schedule);
+    if (date) {
+      getScheduleByDate(date.toISOString().split('T')[0]).then((schedule: Schedule) => {
         console.log(schedule);
+
+        setSchedule(schedule);
       });
     }
-  }, [selectedDate]);
-
-  const handleDateSelect = (date: Date) => {
-    setSelectedDate(date);
-  };
+  }, [date]);
 
   return (
-    <div className="App" style={{ display: 'flex', flexDirection: 'row', height: '100vh' }}>
-      <div style={{ width: '80%', display: 'flex', flexDirection: 'column' }}>
-        <div style={{ flex: 1 }}>
-          <SelectionCalendar onSelectDate={handleDateSelect} />
-          <div style={{ padding: 10 }}>
-            {selectedDate && <Select options={CARS_OPTIONS} onChange={(selectedOption) => setSelectedCarType(selectedOption?.value || "")} />}
-          </div>
-        </div>
-        <div style={{ flex: 1 }}>
-          <Dashboard />
-        </div>
-      </div>
-      <div style={{ width: '50%', overflow: 'auto' }}>
-        {selectedCarType && schedule && <DayScheduler appointments={schedule.bays[selectedCarType].appointments} />}
-      </div>
-    </div>
+    <MantineProvider>
+      <Container fluid>
+        <Grid>
+          <Grid.Col span={6}>
+            <DatePicker value={date} onChange={setDate} defaultDate={DEFAULT_DATE} />
+          </Grid.Col>
+          <Grid.Col span={6}>
+            {/* {schedule && <DayScheduler schedule={schedule} />} */}
+          </Grid.Col>
+        </Grid>
+      </Container>
+    </MantineProvider>
   );
 }
 
